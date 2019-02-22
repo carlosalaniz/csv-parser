@@ -1,0 +1,44 @@
+{
+  "readMode": "RowsAsEntry",
+  "headerRowIndex": 0,
+  "skipRows": [1],
+  "map": {
+    "probe": {
+      "type": "Numeric",
+      "extractMethod": "FixedColumn",
+      "columnIndex": 1,
+      "extractPattern": {
+        "pattern": "\\\\d+(\\\\.\\\\d{1,2})?",
+        "flag": "g"
+      },
+      "castType": true
+    },
+    "readings": {
+      "type": "List",
+      "extractMethod": "Sequential",
+      "listType": {
+        "temperatureUnit": {
+          "extractMethod": "HeaderRow",
+          "extractPattern": {
+            "pattern": "(C|F|K)",
+            "flag": "g"
+          }
+        },
+        "temprature": {
+          "type": "Numeric",
+          "extractMethod": "HeaderRow",
+          "extractPattern": {
+            "pattern": "\\\\d+(\\\\.\\\\d{1,2})?",
+            "flag": "g"
+          }
+        },
+        "timeAbove": {
+          "type": "string",
+          "extractMethod": "CurrentColumn"
+        }
+      },
+      "columnIndexStart": 3,
+      "columnIndexEnd": null
+    }
+  }
+}
